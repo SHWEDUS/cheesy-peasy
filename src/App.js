@@ -1,31 +1,27 @@
 import './App.css';
 import './scss/app.scss'
-import Categories from "./components/SmallComponents/Categories/Categories";
-import Header from "./components/SmallComponents/Header/Header";
-import Sort from "./components/SmallComponents/Sort/Sort";
-import PizzaBlock from "./components/SmallComponents/PizzaBlock/PizzaBlock";
-import pizzas from "./assets/pizzas.json";
+import Header from "./components/SmallComponents/Header";
+import Main from "./pages/Main";
+import NotFound from "./pages/NotFound";
+import {Route, Routes} from "react-router-dom";
+import Cart from "./pages/Cart";
 
 
 
+// https://65a6cc5974cf4207b4f0d408.mockapi.io/items
 function App() {
+
+
   return (
       <div className="wrapper">
         <Header/>
         <div className="content">
           <div className="container">
-            <div className="content__top">
-              <Categories/>
-              <Sort />
-            </div>
-            <h2 className="content__title">Все пиццы</h2>
-            <div className="content__items">
-              {
-                pizzas.map((pizza) => (
-                <PizzaBlock key={pizza.id} {...pizza}/>
-                ))
-              }
-            </div>
+            <Routes>
+              <Route path={'/'} element={<Main />} />
+              <Route path={'/cart'} element={<Cart />} />
+              <Route path={'*'} element={<NotFound />} />
+            </Routes>
           </div>
         </div>
       </div>

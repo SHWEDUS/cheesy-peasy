@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 const typeNames = ['тонкое', 'традиционное']
 
-function PizzaBlock({ title, price, imageUrl, sizes, types}) {
+function Index({ title, price, imageUrl, sizes, types}) {
   const [pizzaCounter, setPizzaCounter] = useState(0)
   const [chosenTypeId, setChosenTypeId] = useState(0);
   const [chosenSizeId, setChosenSizeId] = useState(0);
@@ -64,4 +64,4 @@ function PizzaBlock({ title, price, imageUrl, sizes, types}) {
     )
 }
 
-export default PizzaBlock;
+export default Index;

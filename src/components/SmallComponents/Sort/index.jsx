@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 const sortItems = ['популярности', 'цене', 'алфавиту']
 
-function Sort() {
+function Index() {
   const [popup, setPopup] = useState(false)
   const [choseSortId, setChoseSortId] = useState(0)
 
@@ -51,4 +51,4 @@ function Sort() {
   )
 }
 
-export default Sort;
+export default Index;

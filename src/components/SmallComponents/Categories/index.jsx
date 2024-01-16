@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
+const index = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
 function Categories() {
     const [chosenCategoryId, setChosenCategoryId] = useState(0)
     function handleClickCategory(id) {
@@ -10,7 +10,7 @@ function Categories() {
         <div className="categories">
             <ul>
                 {
-                    categories.map((category, id) => (
+                    index.map((category, id) => (
                     <li
                         key={id}
                         className={chosenCategoryId === id ? 'active' : 'none'}
