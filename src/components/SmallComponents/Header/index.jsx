@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 
 import logo from "../../../assets/img/pizza-logo.svg"
+import SearchBar from "../SearchBar";
 
 function Logo() {
     return (
@@ -56,15 +57,16 @@ function CartBlock() {
     )
 }
 
-function Index() {
+function Header() {
     return (
         <div className="header">
             <div className="container">
-                <Logo/>
-                <CartBlock />
+              <Logo/>
+              <SearchBar />
+              <CartBlock />
             </div>
         </div>
     )
 }
 
-export default Index;
+export default Header;

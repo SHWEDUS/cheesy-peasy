@@ -1,14 +1,22 @@
 import React, {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {changeSort} from "../../../redux/slices/filterSlice";
 
-const sortItems = ['популярности', 'цене', 'алфавиту']
+const sortItems = [
+  {name: 'популярности', sort: 'rating'},
+  {name: 'цене', sort: 'price'},
+  {name: 'алфавиту', sort: 'title'}
+]
 
-function Index() {
+function Sort() {
+  const dispatch = useDispatch();
+  const selectedSortItem = useSelector(state => state.filter.sort)
   const [popup, setPopup] = useState(false)
-  const [choseSortId, setChoseSortId] = useState(0)
+  console.log(selectedSortItem)
 
   function handleChooseItem(id) {
-    setChoseSortId(id)
     setPopup(false)
+    dispatch(changeSort(id))
   }
 
   return (
@@ -27,19 +35,19 @@ function Index() {
                   />
               </svg>
               <b>Сортировка по:</b>
-              <button className="sort__button" onClick={() => setPopup(!popup)}><span>{sortItems[choseSortId]}</span></button>
+              <button className="sort__button" onClick={() => setPopup(!popup)}><span>{selectedSortItem.name}</span></button>
           </div>
         {popup && (
           <div className="sort__popup">
             <ul>
               {
                 sortItems.map((item, id) => (
-                  <button key={id} className="sort__popup__items" onClick={() => handleChooseItem(id)}>
+                  <button key={id} className="sort__popup__items" onClick={() => handleChooseItem(item)}>
                     <li
                       key={id}
-                      className={id === choseSortId ? 'active' : ''}
+                      className={item.sort === selectedSortItem.sort ? 'active' : ''}
                     >
-                      {sortItems[id]}
+                      {item.name}
                     </li>
                   </button>
                 ))
@@ -51,4 +59,4 @@ function Index() {
   )
 }
 
-export default Index;
+export default Sort;
