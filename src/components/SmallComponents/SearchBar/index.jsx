@@ -1,16 +1,32 @@
-import React, {useContext, useRef} from 'react';
+import React, {useCallback, useContext, useRef, useState} from 'react';
 
 import styles from './styles/index.module.scss'
 import {SearchContext} from "../../../App";
+import debounce from "lodash.debounce";
 
 function SearchBar() {
-  const { searchValue, setSearchValue} = useContext(SearchContext)
+  const {setSearchValue} = useContext(SearchContext)
+  const [value, setValue] = useState('');
   const inputRef = useRef();
 
   function handleClose() {
     setSearchValue('');
+    setValue('')
     inputRef.current.focus()
   }
+
+
+  const updateSearchValue = useCallback(
+    debounce((str) => {
+      setSearchValue(str)
+    }, 1000), []
+  );
+
+  const onChangeInput = (evt) => {
+    setValue(evt.target.value)
+    updateSearchValue(evt.target.value)
+  }
+
   return (
     <div className={styles.container}>
       <svg className={styles.icon} width="800px" height="800px" viewBox="0 0 24 24" fill="none"
@@ -28,9 +44,9 @@ function SearchBar() {
           </clipPath>
         </defs>
       </svg>
-      <input className={styles.input} placeholder={'Поиск...'} value={searchValue} ref={inputRef}
-             onChange={(e) => setSearchValue(e.target.value)}></input>
-      {searchValue && (
+      <input className={styles.input} placeholder={'Поиск...'} value={value} ref={inputRef}
+             onChange={onChangeInput}></input>
+      {value && (
         <button className={styles.buttonClose} onClick={handleClose}>
           <svg className={styles.close} width="800px" height="800px" viewBox="0 0 24 24" fill="none"
                xmlns="http://www.w3.org/2000/svg">
