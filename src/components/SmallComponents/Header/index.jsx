@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 import logo from "../../../assets/img/cheese.svg"
 import SearchBar from "../SearchBar";
@@ -61,12 +61,17 @@ function CartBlock() {
 }
 
 function Header() {
+  const location = useLocation()
     return (
         <div className="header">
             <div className="container">
               <Logo/>
-              <SearchBar />
-              <CartBlock />
+              {location.pathname !== '/cart' && (
+                <>
+                  <SearchBar />
+                  <CartBlock />
+                </>
+              )}
             </div>
         </div>
     )
