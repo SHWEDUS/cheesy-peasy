@@ -1,25 +1,24 @@
-import React, {useContext, useEffect, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 
 import Categories from "../components/SmallComponents/Categories";
 import Sort, {sortItems} from "../components/SmallComponents/Sort";
 import SkeletonPizza from "../components/SmallComponents/PizzaBlock/SkeletonPizza";
 import PizzaBlock from "../components/SmallComponents/PizzaBlock";
 import Pagination from "../components/Pagination";
-import {SearchContext} from "../App";
 import {useDispatch, useSelector} from "react-redux";
-import {setCurrentPage, setFilters} from "../redux/slices/filterSlice";
+import {selectFilter, setCurrentPage, setFilters} from "../redux/slices/filterSlice";
 import qs from "qs";
 import {useNavigate} from "react-router-dom";
-import {fetchPizzas} from "../redux/slices/pizzaSlice";
+import {fetchPizzas, selectPizzaData} from "../redux/slices/pizzaSlice";
 
 function Main() {
   const navigate = useNavigate();
 
-  const {categoryId, sort, currentPage} = useSelector(state => state.filter);
-  const {items, status} = useSelector(state => state.pizza)
+  const {categoryId, sort, currentPage} = useSelector(selectFilter);
+  const {items, status} = useSelector(selectPizzaData)
   const dispatch = useDispatch();
 
-  const {searchValue} = useContext(SearchContext);
+  const {searchValue} = useSelector(selectFilter);
   const pizzas = items && items.filter((obj) => {
     return obj.title.toLowerCase().includes(searchValue.toLowerCase());
   }).map((item) => (<PizzaBlock key={item.id} {...item}/>))

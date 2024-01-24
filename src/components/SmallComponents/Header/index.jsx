@@ -3,7 +3,8 @@ import {Link} from "react-router-dom";
 
 import logo from "../../../assets/img/cheese.svg"
 import SearchBar from "../SearchBar";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
+import {selectCart} from "../../../redux/slices/cartSlice";
 
 function Logo() {
     return (
@@ -18,7 +19,7 @@ function Logo() {
 }
 
 function CartBlock() {
-  const {totalPrice, totalCount} = useSelector(state => state.cart);
+  const {totalPrice, totalCount} = useSelector(selectCart);
     return (
         <div className="header__cart">
             <Link to="/cart" className="button button--cart">

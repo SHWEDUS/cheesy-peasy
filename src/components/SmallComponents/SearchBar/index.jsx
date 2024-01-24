@@ -1,16 +1,18 @@
-import React, {useCallback, useContext, useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 
 import styles from './styles/index.module.scss'
-import {SearchContext} from "../../../App";
 import debounce from "lodash.debounce";
+import {useDispatch} from "react-redux";
+import {setSearchValue} from "../../../redux/slices/filterSlice";
 
 function SearchBar() {
-  const {setSearchValue} = useContext(SearchContext)
+  const dispatch = useDispatch();
+
   const [value, setValue] = useState('');
   const inputRef = useRef();
 
   function handleClose() {
-    setSearchValue('');
+    dispatch(setSearchValue(''));
     setValue('')
     inputRef.current.focus()
   }
@@ -18,7 +20,7 @@ function SearchBar() {
 
   const updateSearchValue = useCallback(
     debounce((str) => {
-      setSearchValue(str)
+      dispatch(setSearchValue(str))
     }, 1000), []
   );
 

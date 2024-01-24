@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {changeSort} from "../../../redux/slices/filterSlice";
+import {changeSort, selectFilter} from "../../../redux/slices/filterSlice";
 
 export const sortItems = [
   {name: 'популярности', sort: 'rating'},
@@ -10,7 +10,7 @@ export const sortItems = [
 
 function Sort() {
   const dispatch = useDispatch();
-  const selectedSortItem = useSelector(state => state.filter.sort)
+  const {sort} = useSelector(selectFilter)
   const [popup, setPopup] = useState(false)
   const sortRef = useRef();
 
@@ -49,7 +49,7 @@ function Sort() {
                   />
               </svg>
               <b>Сортировка по:</b>
-              <button className="sort__button" onClick={() => setPopup(!popup)}><span>{selectedSortItem.name}</span></button>
+              <button className="sort__button" onClick={() => setPopup(!popup)}><span>{sort.name}</span></button>
           </div>
         {popup && (
           <div className="sort__popup">
@@ -59,7 +59,7 @@ function Sort() {
                   <button key={id} className="sort__popup__items" onClick={() => handleChooseItem(item)}>
                     <li
                       key={id}
-                      className={item.sort === selectedSortItem.sort ? 'active' : ''}
+                      className={item.sort === sort.sort ? 'active' : ''}
                     >
                       {item.name}
                     </li>
