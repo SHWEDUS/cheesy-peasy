@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {clearItems, selectCart} from "../redux/slices/cartSlice";
@@ -9,6 +9,16 @@ import EmptyCart from "../components/SmallComponents/EmptyCart";
 function Cart(): React.JSX.Element {
   const dispatch = useDispatch();
   const {items, totalCount, totalPrice} = useSelector(selectCart)
+  const isMounted = useRef(false);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      const json = JSON.stringify(items)
+      localStorage.setItem('cartItems', json)
+    }
+
+    isMounted.current = true
+  }, [items]);
 
   const onClickClear = () => {
     if (window.confirm('Вы действительно хотите очитсть корзину?')) {

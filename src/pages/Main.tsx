@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 
 import Categories from "../components/SmallComponents/Categories";
 import Sort, {sortItems} from "../components/SmallComponents/Sort";
@@ -6,7 +6,13 @@ import SkeletonPizza from "../components/SmallComponents/PizzaBlock/SkeletonPizz
 import PizzaBlock from "../components/SmallComponents/PizzaBlock";
 import Pagination from "../components/Pagination";
 import {useDispatch, useSelector} from "react-redux";
-import {FilterSliceState, selectFilter, setCurrentPage, setFilters} from "../redux/slices/filterSlice";
+import {
+  changeCategoryId,
+  FilterSliceState,
+  selectFilter,
+  setCurrentPage,
+  setFilters
+} from "../redux/slices/filterSlice";
 import qs from "qs";
 import {useNavigate} from "react-router-dom";
 import {fetchPizzas, FetchPizzasArgs, selectPizzaData} from "../redux/slices/pizzaSlice";
@@ -42,9 +48,13 @@ function Main(): React.JSX.Element {
     }))
   }
 
-  const onChangePage = (number: number) => {
+  const onChangeCategory = useCallback((id: number) => {
+    dispatch(changeCategoryId(id))
+  }, [])
+
+  const onChangePage = useCallback((number: number) => {
     dispatch(setCurrentPage(number))
-  }
+  }, [])
 
   // useEffect(() => {
   //   if (window.location.search) {
@@ -84,8 +94,8 @@ function Main(): React.JSX.Element {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories />
-        <Sort />
+        <Categories categoryId={categoryId} setCategoryId={onChangeCategory}/>
+        <Sort value={sort}/>
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {

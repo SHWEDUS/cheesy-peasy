@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import {Link, useLocation} from "react-router-dom";
 
 import logo from "../../../assets/img/cheese.svg"
@@ -19,7 +19,18 @@ function Logo(): React.JSX.Element {
 }
 
 function CartBlock(): React.JSX.Element {
-  const {totalPrice, totalCount} = useSelector(selectCart);
+  const {totalPrice, totalCount, items} = useSelector(selectCart);
+  const isMounted = useRef(false);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      const json = JSON.stringify(items)
+      localStorage.setItem('cartItems', json)
+    }
+
+    isMounted.current = true
+  }, [items]);
+
     return (
         <div className="header__cart">
             <Link to="/cart" className="button button--cart">
