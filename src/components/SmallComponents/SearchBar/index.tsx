@@ -9,14 +9,13 @@ function SearchBar() {
   const dispatch = useDispatch();
 
   const [value, setValue] = useState('');
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   function handleClose() {
     dispatch(setSearchValue(''));
     setValue('')
-    inputRef.current.focus()
+    inputRef.current?.focus()
   }
-
 
   const updateSearchValue = useCallback(
     debounce((str) => {
@@ -24,7 +23,7 @@ function SearchBar() {
     }, 1000), []
   );
 
-  const onChangeInput = (evt) => {
+  const onChangeInput = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setValue(evt.target.value)
     updateSearchValue(evt.target.value)
   }

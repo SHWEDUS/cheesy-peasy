@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import cheese from '../../../assets/img/cheese.svg'
 
-function EmptyCart() {
+function EmptyCart(): React.JSX.Element {
   return (
     <div className="container container--cart">
       <div className="cart cart--empty">

@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './styles/index.module.scss'
 
-function NotFoundBlock() {
+function NotFoundBlock(): React.JSX.Element {
   return (
     <h1 className={styles.root}>
       <span>😕</span>

@@ -1,22 +1,27 @@
 import React from 'react';
-import {addItem, destroyItem, removeItem} from "../../../redux/slices/cartSlice";
 import {useDispatch} from "react-redux";
+import {addItem, destroyItem, removeItem} from "../../../redux/slices/cartSlice";
 
 const sizesNames = [26, 30, 40]
 
-function CartItem({item}) {
+
+
+function CartItem({id, type, price, imageUrl, title, size, count} : PizzaCartType): React.JSX.Element {
   const dispatch = useDispatch();
+  const item = {
+    id, type, price, imageUrl, title, size, count
+  }
 
   return (
     <div className="cart__item" >
       <div className="cart__item-img">
         <img className="pizza-block__image"
-             src={item.imageUrl}
-             alt={item.title}/>
+             src={imageUrl}
+             alt={title}/>
       </div>
       <div className="cart__item-info">
-        <h3>{item.title}</h3>
-        <p>{item.type}, {sizesNames[item.size]} см.</p>
+        <h3>{title}</h3>
+        <p>{type}, {sizesNames[size]} см.</p>
       </div>
       <div className="cart__item-count">
         <button className="button button--outline button--circle cart__item-count-minus"
@@ -31,7 +36,7 @@ function CartItem({item}) {
           </svg>
 
         </button>
-        <b>{item.count}</b>
+        <b>{count}</b>
         <button className="button button--outline button--circle cart__item-count-plus"
                 onClick={() => dispatch(addItem(item))}>
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +51,7 @@ function CartItem({item}) {
         </button>
       </div>
       <div className="cart__item-price">
-        <b>{item.price * item.count} ₽</b>
+        <b>{price * count} ₽</b>
       </div>
       <div className="cart__item-remove">
         <button className="button button--outline button--circle" onClick={() => dispatch(destroyItem(item))}>

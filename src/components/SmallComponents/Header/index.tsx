@@ -6,7 +6,7 @@ import SearchBar from "../SearchBar";
 import {useSelector} from "react-redux";
 import {selectCart} from "../../../redux/slices/cartSlice";
 
-function Logo() {
+function Logo(): React.JSX.Element {
     return (
         <Link className="header__logo" to={'/'}>
             <img width="50" src={logo} alt="Pizza logo"/>
@@ -18,7 +18,7 @@ function Logo() {
     )
 }
 
-function CartBlock() {
+function CartBlock(): React.JSX.Element {
   const {totalPrice, totalCount} = useSelector(selectCart);
     return (
         <div className="header__cart">
@@ -60,7 +60,7 @@ function CartBlock() {
     )
 }
 
-function Header() {
+function Header(): React.JSX.Element {
   const location = useLocation()
     return (
         <div className="header">

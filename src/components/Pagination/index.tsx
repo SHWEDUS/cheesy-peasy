@@ -2,7 +2,12 @@ import React from 'react';
 import ReactPaginate from "react-paginate";
 import styles from './styles/styles.module.scss'
 
-function Pagination({currentPage, setCurrentPage}) {
+type PaginationProps = {
+  currentPage: number;
+  setCurrentPage: (selectedPage: number) => void;
+}
+
+function Pagination({currentPage, setCurrentPage}: PaginationProps): React.JSX.Element {
   return (
     <ReactPaginate
       className={styles.root}

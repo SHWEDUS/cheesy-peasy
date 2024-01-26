@@ -1,6 +1,5 @@
 import './App.css';
 import './scss/app.scss'
-import Header from "./components/SmallComponents/Header";
 import Main from "./pages/Main";
 import NotFound from "./pages/NotFound";
 import {Route, Routes} from "react-router-dom";

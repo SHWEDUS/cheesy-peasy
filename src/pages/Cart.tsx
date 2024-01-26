@@ -1,14 +1,14 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {clearItems} from "../redux/slices/cartSlice";
+import {clearItems, selectCart} from "../redux/slices/cartSlice";
 import CartItem from "../components/SmallComponents/CartItem";
 import EmptyCart from "../components/SmallComponents/EmptyCart";
 
 
-function Cart() {
+function Cart(): React.JSX.Element {
   const dispatch = useDispatch();
-  const {items, totalCount, totalPrice} = useSelector(state => state.cart)
+  const {items, totalCount, totalPrice} = useSelector(selectCart)
 
   const onClickClear = () => {
     if (window.confirm('Вы действительно хотите очитсть корзину?')) {
@@ -54,8 +54,8 @@ function Cart() {
           </button>
         </div>
         <div className="content__items">
-          {items.map((item, id) => (
-            <CartItem key={id} item={item} id={id}/>
+          {items.map((item: PizzaCartType, id: number) => (
+            <CartItem key={id} {...item}/>
           ))}
 
         </div>

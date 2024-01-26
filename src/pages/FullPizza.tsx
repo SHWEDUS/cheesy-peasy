@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 
-function FullPizza(props) {
+function FullPizza(): React.JSX.Element | string {
   const {id} = useParams();
-  const [pizza, setPizza] = useState();
+  const [pizza, setPizza] = useState<PizzaResponse>();
   const navigate = useNavigate();
 
   useEffect(() => {

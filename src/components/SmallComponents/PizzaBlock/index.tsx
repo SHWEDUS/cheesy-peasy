@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 const typeNames = ['тонкое', 'традиционное']
 
-function PizzaBlock({ id, title, price, imageUrl, sizes, types}) {
+function PizzaBlock({ id, title, price, imageUrl, sizes, types}: PizzaResponse): React.JSX.Element {
   const cartItem = useSelector(selectCartItemById(id))
   const [chosenTypeId, setChosenTypeId] = useState(0);
   const [chosenSizeId, setChosenSizeId] = useState(0);
@@ -13,13 +13,14 @@ function PizzaBlock({ id, title, price, imageUrl, sizes, types}) {
   const addedCount = cartItem ? cartItem.count : 0
 
   const onClickAdd = () => {
-    const item = {
+    const item: PizzaCartType = {
       id,
       title,
       price,
       imageUrl,
       type: typeNames[chosenTypeId],
       size: chosenSizeId,
+      count: 0
     }
     dispatch(addItem(item))
   }
