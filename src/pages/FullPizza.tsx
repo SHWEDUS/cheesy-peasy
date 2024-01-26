@@ -29,6 +29,7 @@ function FullPizza(): React.JSX.Element | string {
     <div>
       <img src={pizza.imageUrl} alt={pizza.title}/>
       <h2>{pizza.title}</h2>
+      <p>{pizza.description}</p>
       <p>{pizza.price} ₽</p>
     </div>
   );

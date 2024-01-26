@@ -1,22 +1,34 @@
+import {Route, Routes} from "react-router-dom";
+import React, {lazy, Suspense} from "react";
+
 import './App.css';
 import './scss/app.scss'
-import Main from "./pages/Main";
-import NotFound from "./pages/NotFound";
-import {Route, Routes} from "react-router-dom";
-import Cart from "./pages/Cart";
-import React from "react";
-import FullPizza from "./pages/FullPizza";
-import MainLayout from "./layouts/MainLayout";
 
+import MainLayout from "./layouts/MainLayout";
+import Main from "./pages/Main";
+
+const Cart = lazy(() => import('./pages/Cart'))
+const FullPizza = lazy(() => import('./pages/FullPizza'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 function App() {
   return (
      <Routes>
        <Route path={'/'} element={<MainLayout/>}>
          <Route path={''} element={<Main />} />
-         <Route path={'cart'} element={<Cart />} />
-         <Route path={'pizza/:id'} element={<FullPizza />} />
-         <Route path={'*'} element={<NotFound />} />
+         <Route path={'cart'} element={
+           <Suspense fallback={<div>Загрузка корзины</div>}>
+            <Cart />
+           </Suspense>} />
+         <Route path={'pizza/:id'} element={
+           <Suspense fallback={<div>Загрузка Пиццы...</div>}>
+             <FullPizza />
+           </Suspense>} />
+         <Route path={'*'} element={
+           <Suspense fallback={<div>Пустая страница</div>}>
+             <NotFound />
+           </Suspense>}
+         />
        </Route>
      </Routes>
   );

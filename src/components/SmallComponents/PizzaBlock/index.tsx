@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 const typeNames = ['тонкое', 'традиционное']
 
-function PizzaBlock({ id, title, price, imageUrl, sizes, types}: PizzaResponse): React.JSX.Element {
+function PizzaBlock({ id, title, description, price, imageUrl, sizes, types}: PizzaResponse): React.JSX.Element {
   const cartItem = useSelector(selectCartItemById(id))
   const [chosenTypeId, setChosenTypeId] = useState(0);
   const [chosenSizeId, setChosenSizeId] = useState(0);
@@ -36,6 +36,7 @@ function PizzaBlock({ id, title, price, imageUrl, sizes, types}: PizzaResponse):
           />
         <h4 className="pizza-block__title">{title}</h4>
         </Link>
+        <p className="pizza-block__description">{description}</p>
         <div className="pizza-block__selector">
           <ul>
             {
